@@ -16,7 +16,9 @@ document.addEventListener("DOMContentLoaded", function(){
     clearAliases();
 });
 
-window.addEventListener("load", function(){
+window.addEventListener("load", registerUserEvents);
+
+function registerUserEvents(){
 
     $("#aliasForm").submit(function(event) {
         addAlias();
@@ -63,8 +65,7 @@ window.addEventListener("load", function(){
         $("#hideNavItem").hide();
     });
 
-});
-
+}
 
 function initializeDB(){
     const request = self.indexedDB.open(DB_NAME, 1);
