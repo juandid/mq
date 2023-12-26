@@ -174,22 +174,24 @@ function syncAliasList(hidden) {
         if(hidden){
             aliasesStore.getAll().onsuccess = function(event) {
                 //console.log(event.target.result.length);
-                const ul = document.getElementById("aliasList");
+                const al = document.getElementById("aliasList");
+                let cnt= 1;
                 for (let alias of event.target.result) {
                     const li = document.createElement("li");
-                    li.appendChild(document.createTextNode('**********'));
+                    li.appendChild(document.createTextNode(cnt.toString() + '. *************'));
                     li.className = 'list-group-item';
-                    ul.appendChild(li);
+                    al.appendChild(li);
+                    cnt = cnt + 1;
                 }
             };
         }else{
             for(let ind of indArr){
                 aliasesStore.get(ind).onsuccess = function (event){
-                    const ul = document.getElementById("aliasList");
+                    const al = document.getElementById("aliasList");
                     const li = document.createElement("li");
                     li.appendChild(document.createTextNode(event.target.result.name));
                     li.className = 'list-group-item';
-                    ul.appendChild(li);
+                    al.appendChild(li);
                 }
             }
         }
