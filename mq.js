@@ -21,22 +21,33 @@ window.addEventListener("load", registerUserEvents);
 function registerUserEvents(){
 
     $("#aliasForm").submit(function(event) {
-        addAlias();
-        syncAliasList(true);
-        emptyAliasInput();
-        $("#alias").focus();
+        const aliasValue = $("#alias").val();
+        var re = new RegExp(".*[A-Za-z]{2}.*");
+        if (re.test(aliasValue)) {
+            $('#invalidValueAlert').hide();
+            addAlias(aliasValue);
+            syncAliasList(true);
+            emptyAliasInput();
+            $("#alias").focus();
+        } else {
+            $('#invalidValueAlert').show();
+        }
         event.preventDefault();
     });
 
 
     $("#clearLink").click(function() {
+        $('#clearModal').modal('show');
+    });
+
+    $("#clearButton").click(function() {
         clearAliases();
         $("#showNavItem").hide();
         $("#hideNavItem").hide();
         $("#completeNavItem").show();
         $("#aliasFormDiv").show();
+        $('#clearModal').modal('hide');
     });
-
 
     $("#completeLink").click(function() {
         completeFlag = true;
@@ -48,6 +59,7 @@ function registerUserEvents(){
 
     //initially hide item
     $("#showNavItem").hide();
+    $('#invalidValueAlert').hide();
 
     $( "#showLink" ).click(function() {
         syncAliasList(false);
@@ -110,15 +122,7 @@ function clearAliases(){
 
 }
 
-function addAlias(){
-    // handle the form data
-    const aliasValue = $("#alias").val();
-    if(aliasValue === ''){
-        console.log('alias empty');
-        return;
-    }else{
-        //console.log('alias = ' + aliasValue);
-    }
+function addAlias(aliasValue){
 
     const request = self.indexedDB.open(DB_NAME, 1);
     request.onsuccess = function(event) {
@@ -140,9 +144,9 @@ function addAlias(){
 
         const db_op_req = aliasesStore.add({'name': aliasValue});
 
-        db_op_req.onsuccess = function(event) {
-            console.log(event.target.result);
-        }
+        //db_op_req.onsuccess = function(event) {
+        //    console.log(event.target.result);
+        //}
 
         // count number of objects in store
         //aliasesStore.count().onsuccess = function(event) {
