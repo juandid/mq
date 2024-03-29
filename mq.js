@@ -47,6 +47,7 @@ function registerUserEvents(){
         $("#completeNavItem").show();
         $("#aliasFormDiv").show();
         $('#clearModal').modal('hide');
+        $('#invalidValueAlert').hide();
     });
 
     $("#completeLink").click(function() {
