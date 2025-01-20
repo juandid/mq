@@ -13,3 +13,5 @@ Wer am Ende übrig bleibt und durch gutes Zuhören und Erraten alle Decknamen zu
 
 #Zugriff auf die Web App
 Unter der URL https://mq.juandid.com ist die Web-App abrufbar.
+
+#Siehe auch https://juandid.com/posts/mq-game/
